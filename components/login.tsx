@@ -1,5 +1,7 @@
 import * as React from 'react';
-import {Text, StyleSheet, View, TextInput, KeyboardAvoidingView, TouchableOpacity, ImageBackground} from 'react-native';
+import {Text, StyleSheet, View, TextInput, KeyboardAvoidingView, TouchableOpacity, ImageBackground, Alert} from 'react-native';
+
+
 
 
 export default class loginform extends React.Component <any, any>{
@@ -22,7 +24,7 @@ export default class loginform extends React.Component <any, any>{
         return alert("All fields must be filled");
       }
 
-      fetch('http://ipaddress/login.php',{
+      fetch('http://162.243.174.168/login.php',{
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -32,6 +34,15 @@ export default class loginform extends React.Component <any, any>{
           username: user,
           password: pass
         })
+      }).then((response)=>response.json()).then((responseJson) => {
+    
+        if(responseJson == 'LOGIN'){
+          //this.props.navigation.push('Ticket');
+        }else{
+          Alert.alert("Username or password is incorrect");
+        }
+      }).catch((error)=>{
+        Alert.alert(error);
       })
 
     }
@@ -42,14 +53,14 @@ export default class loginform extends React.Component <any, any>{
           
           <ImageBackground source={require('../assets/background.jpg')} style={styles.imageContainer}> 
             <KeyboardAvoidingView style={styles.container} behavior="padding" >
-                <TextInput placeholder="username or email" returnKeyType="next" autoCorrect={false} placeholderTextColor="rgba(0,0,0,0.7)" style={styles.input}/>
-                <TextInput placeholder="password" returnKeyType = "go" placeholderTextColor="rgba(0,0,0,0.7)" secureTextEntry={true} autoCorrect={false} style={styles.input}   />
+                <TextInput placeholder="username or email" returnKeyType="next" autoCapitalize='none' onChangeText={(text)=> this.setState({username:text})} autoCorrect={false} placeholderTextColor="rgba(0,0,0,0.7)" style={styles.input}/>
+                <TextInput placeholder="password" returnKeyType = "go" autoCapitalize='none' onChangeText={(text) => this.setState({password:text})} placeholderTextColor="rgba(0,0,0,0.7)" secureTextEntry={true} autoCorrect={false} style={styles.input}   />
                 
                 <TouchableOpacity style={styles.buttonContainer} onPress={this.checkEntries}>
                 <Text style = {styles.buttonText} onPress={this.checkEntries}>Login</Text>
                 </TouchableOpacity>
                 
-                <Text style={styles.register} onPress={() => this.props.navigation.push('Register')} >Create an account</Text>
+                <Text style={styles.register} onPress={() => this.props.navigation.navigate('Register')} >Create an account</Text>
             </KeyboardAvoidingView>
             </ImageBackground>
         );
@@ -91,3 +102,4 @@ const styles = StyleSheet.create({
       color: '#FFFFFF'
     },
 });
+

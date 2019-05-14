@@ -1,6 +1,6 @@
 <?php 
 
-$mysqli = mysqli_connect("sql3.freemysqlhosting.net", "sql3291677", "ims68BCblx", "sql3291677");
+$mysqli = mysqli_connect("localhost", "root", "roco2603", "react");
 
 
 
@@ -11,12 +11,13 @@ $username = $obj['username'];
 $email = $obj['email'];
 $password = $obj['password'];
 
-$checkParams = "SELECT * FROM users WHERE username='$username'";
-$checkParams2 = "SELECT * FROM users WHERE email='$email'";
+$qu = $mysqli->query("SELECT * FROM users WHERE username='$username' OR email='$email'" );
+if($qu->num_rows > 0){
+    echo json_encode("Username or email already exists");
+    return;
+}
+  
 
-if(isset($checkParams) || isset($checkParams2)){
-    echo json_encode("Username or email already exists")
-}else {
 
 $Sql_Query = "insert into users (username,email,password) values ('$username','$email','$password')";
 
@@ -25,7 +26,6 @@ if(mysqli_query($mysqli, $Sql_Query)){
 }else{
     echo json_encode("ERROR: 2201 (Server Down)");
 
-}
 }
 
 ?>

@@ -17,26 +17,33 @@ export default class register extends React.Component<any, any>{
 
 
     checkEntries() {
-        var username = this.state.username;
-        var email = this.state.email;
-        var password = this.state.password;
+        var user = this.state.username;
+        var em = this.state.email;
+        var pas = this.state.password;
         var confirmPassword = this.state.confirmPassword;
+
+        if(user == "" || pas == ""){
+          return Alert.alert("All fields must be filled");
+        }
+        if(pas != confirmPassword){
+          return Alert.alert("Passwords don't match");
+        }
         
         //Calls PHP for registration approval
-        fetch('http://ipaddress/register.php', {
+        fetch('http://162.243.174.168/register.php', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
           //Sends PHP the username, email and password
           body: JSON.stringify({
-            username: username,
-            email: email,
-            password: password
+            username: user,
+            email: em,
+            password: pas
           })
           //Gets the response from the JSON depending if the user registered successfully or not
-        }).then((Response)=>Response.json)
+        }).then((response)=>response.json())
           .then((responseJson)=>{
             Alert.alert(String(responseJson));
         }).catch((error)=>{
@@ -59,7 +66,7 @@ export default class register extends React.Component<any, any>{
           <TouchableOpacity style={styles.ButtonContainer} onPress={this.checkEntries}>
           <Text style={styles.ButtonText} onPress={ this.checkEntries}>Register</Text>
           </TouchableOpacity>
-          <Text style={styles.Login} >Have an Account? Log in</Text>
+          <Text style={styles.Login} onPress={()=> this.props.navigation.navigate('Login')}>Have an Account? Log in</Text>
           </KeyboardAvoidingView>
         </ImageBackground>
       );
