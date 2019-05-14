@@ -1,5 +1,5 @@
 <?php
-$mysqli = new mysqli("localhost", "username", "password", "database");
+$mysqli = mysqli_connect("sql3.freemysqlhosting.net", "sql3291677", "ims68BCblx", "sql3291677");
 
 $json = file_get_contents("php://input");
 $obj = json_decode($json, true);
