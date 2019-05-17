@@ -58,10 +58,10 @@ export default class register extends React.Component<any, any>{
         
         <ImageBackground source = {require('../assets/background.jpg')} style = {styles.ImageContainer}>
           <KeyboardAvoidingView style={styles.Container} behavior="padding">
-          <TextInput placeholder="Username" returnKeyType="next" autoCorrect = {false} placeholderTextColor="rgba(0,0,0,0.8)" onChangeText={(text) => this.setState({username:text})} style={styles.Input}/>
-          <TextInput placeholder="Email" returnKeyType="next" autoCorrect={false} placeholderTextColor="rgba(0,0,0,0.8)" onChangeText={(text) => this.setState({email:text})} style={styles.Input}/>
-          <TextInput placeholder="Password" returnKeyType="next" secureTextEntry={true} autoCorrect={false} placeholderTextColor="rgba(0,0,0,0.8)" onChangeText={(text) => this.setState({password: text})} style={styles.Input}/>
-          <TextInput placeholder="Confirm Password" returnKeyType="go" secureTextEntry={true} autoCorrect={false} placeholderTextColor="rgba(0,0,0,0.8)" onChangeText={(text) => this.setState({confirmPassword: text})} style={styles.Input}/>
+          <TextInput placeholder="Username" returnKeyType="next" autoCapitalize='none' autoCorrect = {false} placeholderTextColor="rgba(0,0,0,0.8)" onChangeText={(text) => this.setState({username:text})} style={styles.Input}/>
+          <TextInput placeholder="Email" returnKeyType="next" autoCapitalize='none' autoCorrect={false} placeholderTextColor="rgba(0,0,0,0.8)" onChangeText={(text) => this.setState({email:text})} style={styles.Input}/>
+          <TextInput placeholder="Password" returnKeyType="next" autoCapitalize='none' secureTextEntry={true} autoCorrect={false} placeholderTextColor="rgba(0,0,0,0.8)" onChangeText={(text) => this.setState({password: text})} style={styles.Input}/>
+          <TextInput placeholder="Confirm Password" returnKeyType="go" autoCapitalize='none' secureTextEntry={true} autoCorrect={false} placeholderTextColor="rgba(0,0,0,0.8)" onChangeText={(text) => this.setState({confirmPassword: text})} style={styles.Input}/>
 
           <TouchableOpacity style={styles.ButtonContainer} onPress={this.checkEntries}>
           <Text style={styles.ButtonText} onPress={ this.checkEntries}>Register</Text>
