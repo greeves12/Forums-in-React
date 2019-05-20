@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {Text,TextInput, TouchableOpacity, KeyboardAvoidingView, View, StyleSheet, Alert} from 'react-native';
-
-
+import {Header, Divider, Icon} from 'react-native-elements';
 
 
 export default class Post extends React.Component <any,any>{
   constructor(props: any){
     super(props);
     
+    this.createPost = this.createPost.bind(this);
   }
 
    state = {
@@ -50,16 +50,27 @@ export default class Post extends React.Component <any,any>{
   
   render(){
     return(
+      <View style={styles.Head}>
+      <Header 
+        leftComponent={<Icon name='arrow-left' type='font-awesome' onPress={() => this.props.navigation.navigate('Ticket')} />}
+        rightComponent={<Icon name='check' type='font-awesome' onPress={this.createPost} />}
+      />
       <KeyboardAvoidingView style={styles.Container} behavior="padding">
-      <TextInput style={styles.Input} returnKeyType="none"  multiline={true} textAlignVertical='top' placeholder="Enter Title..." onChangeText={(text)=> this.setState({title:text})}></TextInput>
+      
+      <TextInput style={styles.Input} returnKeyType="next" placeholder="Enter Title..." onChangeText={(text)=> this.setState({title:text})}></TextInput>
       <TextInput style={styles.Desc} textAlignVertical={'top'} multiline={true} placeholder="Enter Description..." onChangeText={(text) => this.setState({description:text})}></TextInput> 
      
       </KeyboardAvoidingView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  Head: {
+    flex: 1,
+    justifyContent: "flex-start",    
+  },
   Input: {
         height: 40,
         backgroundColor: 'rgba(255,255,255,0.9)',
@@ -73,7 +84,9 @@ const styles = StyleSheet.create({
   },
   Container: {
     flex: 1,
+    marginTop: 50,
     justifyContent: "flex-start",
     
-  }
+  }, 
+
 });
