@@ -15,16 +15,17 @@ export default class register extends React.Component<any, any>{
       confirmPassword: ""
     }
 
-
+    //The function that runs when the user clicks enter
     checkEntries() {
         var user = this.state.username;
         var em = this.state.email;
         var pas = this.state.password;
         var confirmPassword = this.state.confirmPassword;
-
+        //Makes sure that all fields have been filled.
         if(user == "" || pas == ""){
           return Alert.alert("All fields must be filled");
         }
+        //Checks if the passwords match.
         if(pas != confirmPassword){
           return Alert.alert("Passwords don't match");
         }
@@ -56,7 +57,7 @@ export default class register extends React.Component<any, any>{
     render(){
       return(
         
-        <ImageBackground source = {require('../assets/background.jpg')} style = {styles.ImageContainer}>
+        <ImageBackground source = {require('../assets/react.png')} style = {styles.ImageContainer}>
           <KeyboardAvoidingView style={styles.Container} behavior="padding">
           <TextInput placeholder="Username" returnKeyType="next" autoCapitalize='none' autoCorrect = {false} placeholderTextColor="rgba(0,0,0,0.8)" onChangeText={(text) => this.setState({username:text})} style={styles.Input}/>
           <TextInput placeholder="Email" returnKeyType="next" autoCapitalize='none' autoCorrect={false} placeholderTextColor="rgba(0,0,0,0.8)" onChangeText={(text) => this.setState({email:text})} style={styles.Input}/>

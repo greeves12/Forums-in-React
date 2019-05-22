@@ -8,17 +8,21 @@ $obj = json_decode($json, true);
 $username = $obj['username'];
 
 
+$result = $mysqli->query("SELECT * FROM posts");
 
-if($result = $mysqli->query("SELECT * FROM posts WHERE username='$username'")){
-    if($result->num_rows){
-        $rows = $result->fetch_all();
+$dbarray = array();
 
-        echo json_encode($rows);
-    }
+
+while($row = mysqli_fetch_array($result)){
+    $dbarray[]=array(
+        'username'    => $row["username"],
+        'title'       => $row["title"],
+        'description' => $row["description"]
+    );
 }
-}
 
 
+echo json_encode($dbarray);
 
 
 ?>

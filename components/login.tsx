@@ -37,7 +37,7 @@ export default class loginform extends React.Component <any, any>{
       }).then((response)=>response.json()).then((responseJson) => {
     
         if(responseJson == 'LOGIN'){
-          this.props.navigation.navigate('Post', {Username: user});
+          this.props.navigation.navigate('Ticket', {Username: user});
         }else{
           Alert.alert("Username or password is incorrect");
         }
@@ -51,9 +51,9 @@ export default class loginform extends React.Component <any, any>{
   
         return(
           
-          <ImageBackground source={require('../assets/background.jpg')} style={styles.imageContainer}> 
+          <ImageBackground source={require('../assets/react.png')} style={styles.imageContainer}> 
             <KeyboardAvoidingView style={styles.container} behavior="padding" >
-                <TextInput placeholder="username or email" returnKeyType="next" autoCapitalize='none' onChangeText={(text)=> this.setState({username:text})} autoCorrect={false} placeholderTextColor="rgba(0,0,0,0.7)" style={styles.input}/>
+                <TextInput placeholder="username" returnKeyType="next" autoCapitalize='none' onChangeText={(text)=> this.setState({username:text})} autoCorrect={false} placeholderTextColor="rgba(0,0,0,0.7)" style={styles.input}/>
                 <TextInput placeholder="password" returnKeyType = "go" autoCapitalize='none' onChangeText={(text) => this.setState({password:text})} placeholderTextColor="rgba(0,0,0,0.7)" secureTextEntry={true} autoCorrect={false} style={styles.input}   />
                 
                 <TouchableOpacity style={styles.buttonContainer} onPress={this.checkEntries}>

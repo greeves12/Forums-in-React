@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Text,TextInput, TouchableOpacity, KeyboardAvoidingView, View, StyleSheet, Alert} from 'react-native';
-import {Header, Divider, Icon} from 'react-native-elements';
+import {Header, Icon} from 'react-native-elements';
 
 
 export default class Post extends React.Component <any,any>{
@@ -37,7 +37,7 @@ export default class Post extends React.Component <any,any>{
         })
       }).then((response)=>response.json()).then((responseJson)=>{
         if(responseJson == 'POSTED'){
-          this.props.navigation.navigate('Ticket');
+          this.props.navigation.navigate('Ticket', {Username: username});
           Alert.alert("Successfully posted.");
         }else{
           Alert.alert("Something went wrong...Try again later");
@@ -52,6 +52,7 @@ export default class Post extends React.Component <any,any>{
     return(
       <View style={styles.Head}>
       <Header 
+      backgroundColor='#fff'
         leftComponent={<Icon name='arrow-left' type='font-awesome' onPress={() => this.props.navigation.navigate('Ticket')} />}
         rightComponent={<Icon name='check' type='font-awesome' onPress={this.createPost} />}
       />
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
   Input: {
         height: 40,
         backgroundColor: 'rgba(255,255,255,0.9)',
-        marginTop: 60,
+        marginTop: 10,
         paddingHorizontal: 10,
         opacity: 0.5,
   },
