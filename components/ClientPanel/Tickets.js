@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {Text, StyleSheet, Alert, View, FlatList} from 'react-native';
-import {ListItem, List, Header} from 'react-native-elements'
+import {ListItem, Header} from 'react-native-elements'
 
-
+var theList;
 
 export default class Tickets extends React.Component{
   constructor(props){
@@ -37,7 +37,8 @@ export default class Tickets extends React.Component{
       this.setState({
         data: page === 1 ? response.results : [...this.state.data]
       }); */
-      Alert.alert(JSON.stringify(responseJson));
+      this.setState({data: responseJson})
+      
     }).catch((error) =>{
       Alert.alert(error);
     });
@@ -47,9 +48,18 @@ export default class Tickets extends React.Component{
 
   render() {
     return(
-      <View style={{flex: 1, justifyContent: 'flex-start', marginTop: 50}}>
-      <Text onPress={this.getAllPosts}>hi</Text>
-      </View>
+      
+      <FlatList
+        
+        data={this.state.data}
+        renderItem={({ item }) => (
+          <ListItem 
+           title ={item.username}
+           
+          />
+        )}
+        keyExtractor={item=>item.title}
+      />
     );
   }
 }
