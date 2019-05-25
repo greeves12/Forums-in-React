@@ -2,7 +2,6 @@ import * as React from 'react';
 import {Text,TextInput, TouchableOpacity, KeyboardAvoidingView, View, StyleSheet, Alert} from 'react-native';
 import {Header, Icon} from 'react-native-elements';
 
-
 export default class Post extends React.Component <any,any>{
   constructor(props: any){
     super(props);
@@ -53,8 +52,9 @@ export default class Post extends React.Component <any,any>{
       <View style={styles.Head}>
       <Header 
       backgroundColor='#fff'
-        leftComponent={<Icon name='arrow-left' type='font-awesome' onPress={() => this.props.navigation.navigate('Ticket')} />}
-        rightComponent={<Icon name='check' type='font-awesome' onPress={this.createPost} />}
+        leftComponent={<Icon name='reply' type='font-awesome' onPress={() => this.props.navigation.navigate('Ticket', {Username: this.props.navigation.getParam('Username')})} />}
+        centerComponent={<Text style={{marginRight: 80, fontSize: 15, fontFamily: 'Times', fontWeight: 'bold'}}>Ticket Creation</Text>}
+        rightComponent={<Text style={{color: '#566573', fontFamily: 'Times', fontWeight: 'bold'}} onPress={this.createPost}>POST</Text>}
       />
       <KeyboardAvoidingView style={styles.Container} behavior="padding">
       
@@ -70,22 +70,28 @@ export default class Post extends React.Component <any,any>{
 const styles = StyleSheet.create({
   Head: {
     flex: 1,
-    justifyContent: "flex-start",    
+    justifyContent: "flex-start",
   },
   Input: {
         height: 40,
-        backgroundColor: 'rgba(255,255,255,0.9)',
-        marginTop: 10,
+        color: '#424949',
+        fontSize: 20,
         paddingHorizontal: 10,
         opacity: 0.5,
+        borderBottomColor: 'black',
+        borderBottomWidth: 0.8,
+        borderColor: '#515A5A',
+        
+        
   },
   Desc: {
     height: 300,
-    marginTop: 120
+    marginTop: 20,
+    paddingHorizontal: 10,
   },
   Container: {
     flex: 1,
-    marginTop: 50,
+    marginTop: 20,
     justifyContent: "flex-start",
     
   }, 

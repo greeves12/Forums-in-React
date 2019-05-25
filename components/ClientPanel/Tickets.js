@@ -1,10 +1,14 @@
 import * as React from 'react';
 import {Text, StyleSheet, Alert, View, FlatList} from 'react-native';
-import {ListItem, Header} from 'react-native-elements'
+import {ListItem, Header, Icon} from 'react-native-elements';
+import { createStackNavigator, createAppContainer, createDrawerNavigator, DrawerItems, SafeAreaView} from 'react-navigation';
 
-var theList;
 
-export default class Tickets extends React.Component{
+import posts from '../ClientPanel/Post';
+
+
+
+export default class Tickets extends React.Component {
   constructor(props){
     super(props);
 
@@ -13,14 +17,17 @@ export default class Tickets extends React.Component{
       data: [],
       page: 1
     }
+  
   }
 
   componentDidMount(){
     this.getAllPosts();
+    
   }
 
   getAllPosts(){
-    //var username = this.props.navigation.getParam('Username');
+    //Doesn't get username from the params.
+    var username = this.props.navigation.getParam('Username');
 
     fetch("http://162.243.174.168/scrobble.php", {
       method: 'POST',
@@ -29,16 +36,11 @@ export default class Tickets extends React.Component{
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        username: 'tate'
+        username: username
       })
     }).then((reponse) => reponse.json()).then((responseJson) => {
       //Create post layout
-      /*
-      this.setState({
-        data: page === 1 ? response.results : [...this.state.data]
-      }); */
       this.setState({data: responseJson})
-      
     }).catch((error) =>{
       Alert.alert(error);
     });
@@ -49,17 +51,36 @@ export default class Tickets extends React.Component{
   render() {
     return(
       
-      <FlatList
+      <View style={styles.Head}>
+     
+      <Header 
+        leftComponent={<Icon name='bars' type='font-awesome' onPress={() => this.props.navigation.openDrawer()}/>}
+      />
+      <FlatList style={styles.Container}
         
         data={this.state.data}
         renderItem={({ item }) => (
           <ListItem 
-           title ={item.username}
+           title ={item.title}
            
           />
         )}
         keyExtractor={item=>item.title}
       />
+      </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  Head: {
+    flex: 1,
+    justifyContent: 'flex-start'
+  },
+  Container: {
+    
+  }
+  
+})
+
+
