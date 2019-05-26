@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {View} from 'react-native';
 import {Icon} from 'react-native-elements';
-import {createBottomTabNavigator,createSwitchNavigator, createAppContainer, createStackNavigator, SafeAreaView} from 'react-navigation';
+import {createBottomTabNavigator,createSwitchNavigator, createAppContainer, createStackNavigator, SafeAreaView, } from 'react-navigation';
 
 import loginform from './components/login';
 import registerform from './components/register';
@@ -24,8 +24,21 @@ export default class App extends React.Component <any,any>{
 }
 
 const AppBottomNavigator = createBottomTabNavigator({
-  Feed: {screen: Tickets},
-  Post: {screen: Post}
+  Feed: {screen: Tickets,
+    navigationOptions: {
+        tabBarIcon: ({tintColor}) => (
+            <Icon name='rss' type='font-awesome'/>
+        ),
+    }
+    
+  },
+  Post: {screen: Post,
+    navigationOptions :{
+      tabBarIcon: ({tintColor}) => (
+        <Icon name='plus' type='font-awesome' />
+      ),
+    }
+  }
 });
 
 const AppSwitchNavigator = createSwitchNavigator({

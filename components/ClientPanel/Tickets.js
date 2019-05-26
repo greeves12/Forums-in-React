@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 
 import posts from '../ClientPanel/Post';
 
-
+let users = "";
 
 export default class Tickets extends React.Component {
   constructor(props){
@@ -42,6 +42,7 @@ export default class Tickets extends React.Component {
     }).then((reponse) => reponse.json()).then((responseJson) => {
       //Create post layout
       this.setState({data: responseJson})
+      users = username;
     }).catch((error) =>{
       Alert.alert(error);
     });
@@ -61,7 +62,8 @@ export default class Tickets extends React.Component {
         data={this.state.data}
         renderItem={({ item }) => (
           <ListItem 
-           title ={item.description}
+           title ={item.title}
+           subtitle={item.username}
            onPress={() => this.props.navigation.navigate('Views', {Title: item.title, Description: item.description, Username: this.props.navigation.getParam('Username')})}
           />
         )}
@@ -82,5 +84,7 @@ const styles = StyleSheet.create({
   }
   
 })
+
+export {users}
 
 

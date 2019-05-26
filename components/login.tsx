@@ -37,6 +37,7 @@ export default class loginform extends React.Component <any, any>{
     
         if(responseJson == 'LOGIN'){
           this.props.navigation.navigate('Feed', {Username: user});
+          users = user;
         }else{
           Alert.alert("Username or password is incorrect");
         }
@@ -101,4 +102,5 @@ const styles = StyleSheet.create({
       color: '#FFFFFF'
     },
 });
+
 

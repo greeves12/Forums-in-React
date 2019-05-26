@@ -2,6 +2,8 @@ import * as React from 'react';
 import {Text,TextInput, TouchableOpacity, KeyboardAvoidingView, View, StyleSheet, Alert} from 'react-native';
 import {Header, Icon} from 'react-native-elements';
 
+import {users} from './Tickets';
+
 export default class Post extends React.Component <any,any>{
   constructor(props: any){
     super(props);
@@ -18,11 +20,12 @@ export default class Post extends React.Component <any,any>{
     createPost (){
       const {title} = this.state;
       const {description} = this.state;
-      var username = this.props.navigation.dangerouslyGetParent().getParam('Username')
+      var username = users;
 
       if(title == "" || description == ""){
         return Alert.alert("All fields must be filled");
       }
+
       fetch('http://162.243.174.168/create.php', {
         method: 'POST',
         headers: {
@@ -36,7 +39,7 @@ export default class Post extends React.Component <any,any>{
         })
       }).then((response)=>response.json()).then((responseJson)=>{
         if(responseJson == 'POSTED'){
-          this.props.navigation.navigate('Ticket', {Username: username});
+          this.props.navigation.navigate('Feed', {Username: username});
           this.setState({title: ""})
           this.setState({description: ""})
           Alert.alert("Successfully posted.");
