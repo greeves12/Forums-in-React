@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {Text, StyleSheet, Alert, View, FlatList} from 'react-native';
 import {ListItem, Header, Icon} from 'react-native-elements';
-import { createStackNavigator, createAppContainer, createDrawerNavigator, DrawerItems, SafeAreaView} from 'react-navigation';
+import Drawer from 'react-native-drawer';
+import PropTypes from 'prop-types'
 
 
 import posts from '../ClientPanel/Post';
@@ -47,25 +48,24 @@ export default class Tickets extends React.Component {
     
   }
 
-
   render() {
     return(
       
       <View style={styles.Head}>
-     
       <Header 
-        leftComponent={<Icon name='bars' type='font-awesome' onPress={() => this.props.navigation.openDrawer()}/>}
+        leftComponent={<Icon name='cog' type='font-awesome' onPress={()=>this.props.navigation.navigate('Settings')}/>}
+        rightComponent={<Icon name='user' type='font-awesome' onPress={() => this.props.navigation.navigate('Profiles')} />}
       />
       <FlatList style={styles.Container}
         
         data={this.state.data}
         renderItem={({ item }) => (
           <ListItem 
-           title ={item.title}
-           
+           title ={item.description}
+           onPress={() => this.props.navigation.navigate('Views', {Title: item.title, Description: item.description, Username: this.props.navigation.getParam('Username')})}
           />
         )}
-        keyExtractor={item=>item.title}
+        keyExtractor={item => item.title}
       />
       </View>
     );

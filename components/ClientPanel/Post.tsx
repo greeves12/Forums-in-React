@@ -18,7 +18,7 @@ export default class Post extends React.Component <any,any>{
     createPost (){
       const {title} = this.state;
       const {description} = this.state;
-      var username = this.props.navigation.getParam('Username');
+      var username = this.props.navigation.dangerouslyGetParent().getParam('Username')
 
       if(title == "" || description == ""){
         return Alert.alert("All fields must be filled");
@@ -37,6 +37,8 @@ export default class Post extends React.Component <any,any>{
       }).then((response)=>response.json()).then((responseJson)=>{
         if(responseJson == 'POSTED'){
           this.props.navigation.navigate('Ticket', {Username: username});
+          this.setState({title: ""})
+          this.setState({description: ""})
           Alert.alert("Successfully posted.");
         }else{
           Alert.alert("Something went wrong...Try again later");
@@ -52,14 +54,13 @@ export default class Post extends React.Component <any,any>{
       <View style={styles.Head}>
       <Header 
       backgroundColor='#fff'
-        leftComponent={<Icon name='reply' type='font-awesome' onPress={() => this.props.navigation.navigate('Ticket', {Username: this.props.navigation.getParam('Username')})} />}
-        centerComponent={<Text style={{marginRight: 80, fontSize: 15, fontFamily: 'Times', fontWeight: 'bold'}}>Ticket Creation</Text>}
+        leftComponent={<Text style={{marginRight: 80, fontSize: 15, fontFamily: 'Times', fontWeight: 'bold'}}>Ticket Creation</Text>}
         rightComponent={<Text style={{color: '#566573', fontFamily: 'Times', fontWeight: 'bold'}} onPress={this.createPost}>POST</Text>}
       />
       <KeyboardAvoidingView style={styles.Container} behavior="padding">
       
-      <TextInput style={styles.Input} returnKeyType="next" placeholder="Enter Title..." onChangeText={(text)=> this.setState({title:text})}></TextInput>
-      <TextInput style={styles.Desc} textAlignVertical={'top'} multiline={true} placeholder="Enter Description..." onChangeText={(text) => this.setState({description:text})}></TextInput> 
+      <TextInput style={styles.Input} returnKeyType="next" placeholder="Enter Title..." onChangeText={(text)=> this.setState({title:text})} value={this.state.title}></TextInput>
+      <TextInput style={styles.Desc} textAlignVertical={'top'} multiline={true} placeholder="Enter Description..." onChangeText={(text) => this.setState({description:text})} value={this.state.description}></TextInput> 
      
       </KeyboardAvoidingView>
       </View>

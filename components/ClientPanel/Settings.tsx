@@ -4,7 +4,7 @@ import {Text, StyleSheet} from 'react-native';
 export default class Settings extends React.Component {
   render() {
     return(
-      
+      <Text>settings</Text>
 
     );
   }

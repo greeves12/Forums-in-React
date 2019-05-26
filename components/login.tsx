@@ -36,10 +36,7 @@ export default class loginform extends React.Component <any, any>{
       }).then((response)=>response.json()).then((responseJson) => {
     
         if(responseJson == 'LOGIN'){
-          
-          this.props.navigation.navigate('Tickets', {Username: user});
-        
-          
+          this.props.navigation.navigate('Feed', {Username: user});
         }else{
           Alert.alert("Username or password is incorrect");
         }
