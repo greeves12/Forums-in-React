@@ -46,7 +46,12 @@ export default class register extends React.Component<any, any>{
           //Gets the response from the JSON depending if the user registered successfully or not
         }).then((response)=>response.json())
           .then((responseJson)=>{
-            Alert.alert(String(responseJson));
+            if(responseJson == "Successfully registered"){
+              Alert.alert("Successfully registered");
+              this.props.navigation.navigate('Login');
+            }else{
+              Alert.alert(String(responseJson));
+            }
         }).catch((error)=>{
           //Returns an error if it occurs
           Alert.alert(error);

@@ -9,6 +9,7 @@ import posts from '../ClientPanel/Post';
 
 let users = "";
 
+
 export default class Tickets extends React.Component {
   constructor(props){
     super(props);
@@ -16,9 +17,10 @@ export default class Tickets extends React.Component {
     this.state = {
       loading: false,
       data: [],
-      page: 1
+      page: 1,
+      refreshing: false
     }
-  
+    this.getAllPosts = this.getAllPosts.bind(this);
   }
 
   componentDidMount(){
@@ -26,7 +28,7 @@ export default class Tickets extends React.Component {
     
   }
 
-  getAllPosts(){
+  getAllPosts =()=> {
     //Doesn't get username from the params.
     var username = this.props.navigation.getParam('Username');
 
@@ -43,11 +45,14 @@ export default class Tickets extends React.Component {
       //Create post layout
       this.setState({data: responseJson})
       users = username;
+      
     }).catch((error) =>{
       Alert.alert(error);
     });
     
   }
+
+  
 
   render() {
     return(
@@ -61,13 +66,16 @@ export default class Tickets extends React.Component {
         
         data={this.state.data}
         renderItem={({ item }) => (
-          <ListItem 
+          <ListItem
            title ={item.title}
-           subtitle={item.username}
+           subtitle={item.description}
+           subtitleNumberOfLines={(item.description.length)/40}
            onPress={() => this.props.navigation.navigate('Views', {Title: item.title, Description: item.description, Username: this.props.navigation.getParam('Username')})}
           />
         )}
         keyExtractor={item => item.title}
+        refreshing={this.state.refreshing}
+        onRefresh={this.getAllPosts}
       />
       </View>
     );
@@ -81,7 +89,8 @@ const styles = StyleSheet.create({
   },
   Container: {
     
-  }
+  },
+
   
 })
 

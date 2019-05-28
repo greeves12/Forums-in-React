@@ -57,7 +57,7 @@ export default class Post extends React.Component <any,any>{
       <View style={styles.Head}>
       <Header 
       backgroundColor='#fff'
-        leftComponent={<Text style={{marginRight: 80, fontSize: 15, fontFamily: 'Times', fontWeight: 'bold'}}>Ticket Creation</Text>}
+        leftComponent={<Text style={{marginRight: 80, fontSize: 15, fontFamily: 'Times', fontWeight: 'bold'}}>Text Post</Text>}
         rightComponent={<Text style={{color: '#566573', fontFamily: 'Times', fontWeight: 'bold'}} onPress={this.createPost}>POST</Text>}
       />
       <KeyboardAvoidingView style={styles.Container} behavior="padding">
@@ -85,8 +85,6 @@ const styles = StyleSheet.create({
         borderBottomColor: 'black',
         borderBottomWidth: 0.8,
         borderColor: '#515A5A',
-        
-        
   },
   Desc: {
     height: 300,

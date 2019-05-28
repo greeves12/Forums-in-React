@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Text, StyleSheet, View, TextInput, KeyboardAvoidingView, TouchableOpacity, ImageBackground, Alert} from 'react-native';
+import {Text, StyleSheet, View, TextInput, KeyboardAvoidingView, TouchableOpacity, ImageBackground, Alert, AsyncStorage} from 'react-native';
 
 
 
@@ -8,11 +8,35 @@ export default class loginform extends React.Component <any, any>{
       super(props);
 
       this.checkEntries = this.checkEntries.bind(this);
+      this.saveuserID = this.saveuserID.bind(this);
+      this.startPreLogIn = this.startPreLogIn.bind(this);
     }
 
     state = {
       username: "",
       password: ""
+    }
+
+
+    componentDidMount =() =>{
+      AsyncStorage.getItem('userID').then((value) => this.setState({username: value}));
+      AsyncStorage.getItem('password').then((value) => this.setState({password: value}));
+      this.startPreLogIn()
+    }
+
+     saveuserID = () => {
+      AsyncStorage.setItem('userID', this.state.username);
+      AsyncStorage.setItem('password', this.state.password);
+    }
+
+    startPreLogIn(){
+      var user = this.state.username;
+      var pass = this.state.password;
+    
+      if(user != "" && pass != ""){
+        this.props.navigation.navigate('Feed', {Username: user})
+        Alert.alert("Logging");
+      }
     }
 
     checkEntries() {
@@ -37,7 +61,7 @@ export default class loginform extends React.Component <any, any>{
     
         if(responseJson == 'LOGIN'){
           this.props.navigation.navigate('Feed', {Username: user});
-          users = user;
+          this.saveuserID()
         }else{
           Alert.alert("Username or password is incorrect");
         }

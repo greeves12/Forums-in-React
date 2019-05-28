@@ -19,9 +19,20 @@ export default class ViewPost extends React.Component {
       <Header 
       leftComponent={<Icon name='arrow-left' type='font-awesome' onPress={() => this.props.navigation.navigate('Feed', {Username: this.username})}/>}
       />
-        <Text>{this.title}</Text>
-        <Text>{this.description}</Text>
-      </View>
+        <View style={styles.container}>
+            <Text style={{}}> {this.title} </Text>
+            <Text> {this.username} </Text>
+            <Text> {this.description} </Text>
+            <Text><Icon name='exclamation-circle' type='font-awesome'/>Report</Text>
+            
+            //Clickable texts for the OP
+            //Check if user is admin
+            <Text>Edit</Text>
+            <Text>Delete</Text>
+        </View>
+          //Sort through the comments with a for loop
+          //Note to self, don't use the style sheet as the comment container will need to be dynamically set depending on how much text there is
+        </View>
 
     );
   }
@@ -34,7 +45,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    marginTop: 50
+    marginTop: 50,
+    
   },
-
 });
