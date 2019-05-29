@@ -70,7 +70,7 @@ export default class Tickets extends React.Component {
            title ={item.title}
            subtitle={item.description}
            subtitleNumberOfLines={(item.description.length)/40}
-           onPress={() => this.props.navigation.navigate('Views', {Title: item.title, Description: item.description, Username: this.props.navigation.getParam('Username')})}
+           onPress={() => this.props.navigation.navigate('Views', {Title: item.title, Description: item.description, Username: this.props.navigation.getParam('Username'), ID: item.id})}
           />
         )}
         keyExtractor={item => item.title}

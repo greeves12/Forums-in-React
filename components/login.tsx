@@ -14,7 +14,8 @@ export default class loginform extends React.Component <any, any>{
 
     state = {
       username: "",
-      password: ""
+      password: "",
+       lol: <p>hi</p>
     }
 
 
@@ -55,7 +56,8 @@ export default class loginform extends React.Component <any, any>{
         },
         body: JSON.stringify({
           username: user,
-          password: pass
+          password: pass,
+         
         })
       }).then((response)=>response.json()).then((responseJson) => {
     
@@ -77,7 +79,7 @@ export default class loginform extends React.Component <any, any>{
           
           <ImageBackground source={require('../assets/react.png')} style={styles.imageContainer}> 
             <KeyboardAvoidingView style={styles.container} behavior="padding" >
-                <TextInput placeholder="username" returnKeyType="next" autoCapitalize='none' onChangeText={(text)=> this.setState({username:text})} autoCorrect={false} placeholderTextColor="rgba(0,0,0,0.7)" style={styles.input}/>
+                <TextInput placeholder="username" returnKeyType="next" autoCapitalize='none' onChangeText={(text)=> this.setState({username:text})} autoCorrect={false} placeholderTextColor="rgba(0,0,0,0.7)" style={styles.input} />
                 <TextInput placeholder="password" returnKeyType = "go" autoCapitalize='none' onChangeText={(text) => this.setState({password:text})} placeholderTextColor="rgba(0,0,0,0.7)" secureTextEntry={true} autoCorrect={false} style={styles.input}   />
                
                 <TouchableOpacity style={styles.buttonContainer} onPress={this.checkEntries}>
