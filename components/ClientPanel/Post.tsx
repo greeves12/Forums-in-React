@@ -10,35 +10,40 @@ export default class Post extends React.Component <any,any>{
     
     this.createPost = this.createPost.bind(this);
   }
-
+  //As usual I've created a state object with the title and description of the post
    state = {
       title: "",
       description: ""
     }
     
-
+    //Create post function
     createPost (){
       const {title} = this.state;
       const {description} = this.state;
       var username = users;
 
+      //Makes sure neither are blank, so they don't waste my time fetching nonsense
       if(title == "" || description == ""){
         return Alert.alert("All fields must be filled");
       }
 
+      //Creates a request for to the server
       fetch('http://162.243.174.168/create.php', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
+        //Sends the title, description, and username to the server through a JSON
         body: JSON.stringify({
           title: title,
           description: description,
           username: username
         })
       }).then((response)=>response.json()).then((responseJson)=>{
+        //When we get a response back, we check if it actually posted or not
         if(responseJson == 'POSTED'){
+          //If it posted we will set everything blank (textbox's) and send the user back to the thread page
           this.props.navigation.navigate('Feed', {Username: username});
           this.setState({title: ""})
           this.setState({description: ""})

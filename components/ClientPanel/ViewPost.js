@@ -14,6 +14,7 @@ export default class ViewPost extends React.Component {
     this.getAllComments = this.getAllComments.bind(this);
   }
 
+  //Local variables that are fetched from the property
   title = this.props.navigation.getParam('Title');
   description = this.props.navigation.getParam('Description');
   username = this.props.navigation.getParam('Username');
@@ -22,7 +23,7 @@ export default class ViewPost extends React.Component {
 
   getAllComments=()=>{
     var i = this.props.navigation.getParam('ID');
-
+    //Creates another request to the server
     fetch('http://162.243.174.168/comment.php', {
         method: 'POST',
         headers: {
@@ -30,18 +31,20 @@ export default class ViewPost extends React.Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          //We need to send the ID of the thread only since we only want the comments for that thread
           id: i
         })
     }).then((reponse) => reponse.json()).then((reponseJson) => {
+        //Set the state data as the array reponse we get back
         this.setState({data: reponseJson});
     }).catch((error) =>{
       Alert.alert(error);
     })
   }
 
+  //Makes sure we get the comments first since we need to render them
   componentDidMount(){
     this.getAllComments();
-    
   }
 
   render() {
@@ -57,7 +60,7 @@ export default class ViewPost extends React.Component {
         <View style={{height: 40, width: 350, backgroundColor: '#FA8072'}}></View>
         <View style={{flexDirection: 'row'}}>
             <Text style={{marginLeft: 10, fontSize: 20, textDecorationLine: 'underline'}}>{this.title} </Text>
-            <Text> /u/{this.username} </Text>
+            <Text> u/{this.username} </Text>
         </View>    
             <Text> {this.description} </Text>
             
@@ -73,13 +76,12 @@ export default class ViewPost extends React.Component {
         </View>
         </View>
     
-          <FlatList 
+          <FlatList style={{marginTop:10}}
             data={this.state.data}
             renderItem={({item}) => (
-              <View style={{height: (item.description.length)/50 + 20, width: 350, border: 1, backgroundColor: '#FFF' ,borderColor: 'black', borderWidth: 1, marginLeft: 30}}>
+              <View style={{flex: 1, width: 350, border: 1, backgroundColor: '#FFF' ,borderColor: 'black', borderWidth: 1, marginLeft: 30}}>
                 <View style={{flexDirection: 'row'}}>
-                  <Text style={{}}> {item.title} </Text>
-                  <Text style={{}}> /u/{item.username} </Text>
+                  <Text style={{}}>Posted by u/{item.username} </Text>
                 </View>
                 <Text> {item.description} </Text>
 

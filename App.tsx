@@ -25,6 +25,7 @@ export default class App extends React.Component <any,any>{
   }
 }
 
+//Creates the bottom navigator for the application
 const AppBottomNavigator = createBottomTabNavigator({
   Feed: {screen: Tickets,
     navigationOptions: {
@@ -43,6 +44,7 @@ const AppBottomNavigator = createBottomTabNavigator({
   }
 });
 
+//Creates the entire page switiching system, alls the application to transfer between pages aswell as allowing data to be passed through without having to constantly export
 const AppSwitchNavigator = createSwitchNavigator({
   Login: {screen:loginform},
   Register: {screen: registerform},
@@ -53,7 +55,7 @@ const AppSwitchNavigator = createSwitchNavigator({
   Comment: {screen: Comments}
 });
 
-
+//Creates the container for the application
 const Application = createAppContainer(AppSwitchNavigator);
 
  

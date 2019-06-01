@@ -9,13 +9,13 @@ import posts from '../ClientPanel/Post';
 
 let users = "";
 
-
 export default class Tickets extends React.Component {
   constructor(props){
     super(props);
 
     this.state = {
       loading: false,
+      //Array for the payload
       data: [],
       page: 1,
       refreshing: false
@@ -23,15 +23,17 @@ export default class Tickets extends React.Component {
     this.getAllPosts = this.getAllPosts.bind(this);
   }
 
+  //When the class is initialized this will be the first to run as we need to render the threads
   componentDidMount(){
     this.getAllPosts();
-    
   }
 
+  //Originally the app was supposed to be a support center, however, I changed it to become a forum for more of challenge
   getAllPosts =()=> {
-    //Doesn't get username from the params.
+    //Gets the username from the property
     var username = this.props.navigation.getParam('Username');
 
+    //Requests an array of data from the server (Threads)
     fetch("http://162.243.174.168/scrobble.php", {
       method: 'POST',
       headers: {
@@ -42,8 +44,9 @@ export default class Tickets extends React.Component {
         username: username
       })
     }).then((reponse) => reponse.json()).then((responseJson) => {
-      //Create post layout
-      this.setState({data: responseJson})
+      //Since the response will be an array, I've created an array in the state object
+      this.setState({data: responseJson});
+      //
       users = username;
       
     }).catch((error) =>{
@@ -51,8 +54,6 @@ export default class Tickets extends React.Component {
     });
     
   }
-
-  
 
   render() {
     return(
@@ -82,6 +83,7 @@ export default class Tickets extends React.Component {
   }
 }
 
+//Style sheet for the class
 const styles = StyleSheet.create({
   Head: {
     flex: 1,
@@ -94,6 +96,7 @@ const styles = StyleSheet.create({
   
 })
 
+//Exports the user variable, this was needed as a bypass for the navigation property (bottom bar)
 export {users}
 
 

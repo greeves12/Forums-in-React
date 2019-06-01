@@ -19,7 +19,7 @@ if($qu->num_rows > 0){
   
 
 
-$Sql_Query = "insert into users (username,email,password) values ('$username','$email','$password')";
+$Sql_Query = "insert into users (username,email,password,admin) values ('$username','$email','$password', 'false')";
 
 if(mysqli_query($mysqli, $Sql_Query)){
     echo json_encode("Successfully registered");
@@ -27,5 +27,5 @@ if(mysqli_query($mysqli, $Sql_Query)){
     echo json_encode("ERROR: 2201 (Server Down)");
 
 }
-
+mysqli_close($mysqli);
 ?>

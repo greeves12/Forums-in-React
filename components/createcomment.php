@@ -17,6 +17,6 @@ if(mysqli_query($mysqli, $sqlpost)){
     echo json_decode("Error occured. Try again later");
 }
 
-
+mysqli_close($mysqli);
 
 ?>

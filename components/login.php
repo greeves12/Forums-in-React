@@ -18,4 +18,5 @@ if(isset($check)){
 }else{
     echo json_encode("NO");
 }
+mysqli_close($mysqli);
 ?>
