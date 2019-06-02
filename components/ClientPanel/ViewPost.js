@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {StyleSheet,FlatList, Text, Alert, View, ImageBackground} from 'react-native';
+import {StyleSheet,FlatList, Text, Alert, View, ImageBackground, ScrollView, RefreshControl} from 'react-native';
 import {Header, Icon, ListItem} from 'react-native-elements';
 
 
@@ -8,7 +8,8 @@ export default class ViewPost extends React.Component {
   constructor(props){
     super(props);
     this.state ={
-      data: []
+      data: [],
+      refreshing: false
     }
 
     this.getAllComments = this.getAllComments.bind(this);
@@ -19,7 +20,12 @@ export default class ViewPost extends React.Component {
   description = this.props.navigation.getParam('Description');
   username = this.props.navigation.getParam('Username');
   theId = this.props.navigation.getParam('ID');
+  op = this.props.navigation.getParam('OP');
+  admin = this.props.navigation.getParam('Admin');
 
+  deleteContent=()=>{
+
+  }
 
   getAllComments=()=>{
     var i = this.props.navigation.getParam('ID');
@@ -48,15 +54,27 @@ export default class ViewPost extends React.Component {
   }
 
   render() {
+    let deleteIcon;
+    let deleteText;
+    let editText;
+    let editButton;
+
+    if(this.username == this.op || this.admin){
+      deleteIcon =  <Icon onPress={() => this.deleteContent} name='trash' type='font-awesome' size={20} />
+      deleteText =  <Text onPress={() => this.deleteContent}> Delete</Text>
+      editText = <Text onPress={() => this.props.navigation.navigate()}> Edit    </Text>
+      editButton = <Icon onPress={() => this.props.navigation.navigate()} containerStyle={{marginLeft: 3}} name='edit' type='font-awesome' size={20}/>
+    }
+
     return(
-      <ImageBackground style={{flex: 1,resizeMode: 'cover'}} source={require('../../assets/react.png')} >
+    <ImageBackground style={{flex: 1,resizeMode: 'cover'}} source={require('../../assets/react.png')} >
      
-      <Header innerContainerStyles={styles.header}
+      <Header innerContainerStyles={{}}
       backgroundColor='orange'
       leftComponent={<Icon name='arrow-left' type='font-awesome' onPress={() => this.props.navigation.navigate('Feed', {Username: this.username})}/>}
-      />
-  
-        <View style={{width: 350,height: 300,marginLeft: 30, backgroundColor: '#F4F6F6'}}>
+      /> 
+    <ScrollView refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.getAllComments}/>}>
+      <View style={{width: 350,height: 300,marginLeft: 30, backgroundColor: '#F4F6F6'}}>
         <View style={{height: 40, width: 350, backgroundColor: '#FA8072'}}></View>
         <View style={{flexDirection: 'row'}}>
             <Text style={{marginLeft: 10, fontSize: 20, textDecorationLine: 'underline'}}>{this.title} </Text>
@@ -65,22 +83,22 @@ export default class ViewPost extends React.Component {
             <Text> {this.description} </Text>
             
         <View style={{flexDirection: 'row', marginTop: 180}}>
-            <Icon containerStyle={{marginLeft: 3}} name='edit' type='font-awesome' size={20}/>
-            <Text> Edit    </Text>
-            <Icon name='trash' type='font-awesome' size={20} />
-            <Text> Delete</Text>
+            {editButton}
+            {editText}
+            {deleteIcon}
+            {deleteText}
             <Icon containerStyle={{marginLeft: 68}} name='reply' type='font-awesome' size={20} onPress={() => this.props.navigation.navigate('Comment', {Username: this.username, Title: this.title, Description: this.description, ID: this.theId})}/>
             <Text onPress={() => this.props.navigation.navigate('Comment', {Username: this.username, Title: this.title, Description: this.description, ID: this.theId})}> Reply    </Text>
             <Icon name='exclamation-circle' type='font-awesome' size={20}/>
             <Text> Report</Text>
         </View>
-        </View>
-    
+      </View>
+ 
           <FlatList style={{marginTop:10}}
             data={this.state.data}
             renderItem={({item}) => (
               <View style={{flex: 1, width: 350, border: 1, backgroundColor: '#FFF' ,borderColor: 'black', borderWidth: 1, marginLeft: 30}}>
-                <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection: 'row', backgroundColor: '#F4F6F6', borderBottomColor: '#000000', borderBottomWidth: 1, paddingBottom: 5}}>
                   <Text style={{}}>Posted by u/{item.username} </Text>
                 </View>
                 <Text> {item.description} </Text>
@@ -91,14 +109,9 @@ export default class ViewPost extends React.Component {
               </View>
             )}
           />
-       </ImageBackground>
+        </ScrollView>
+    </ImageBackground>
         
     );
   }
 }
-
-const styles = StyleSheet.create({
-  header: {
-    
-  },
-});

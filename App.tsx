@@ -11,6 +11,7 @@ import Profile from './components/ClientPanel/Profile';
 import Settings from './components/ClientPanel/Settings';
 import ViewPost from './components/ClientPanel/ViewPost';
 import Comments from './components/ClientPanel/Comments';
+import Edit from './components/ClientPanel/Edit';
 
 //Comments will not be displayed within the render/return methods of the components as the compiler thinks that its a text that isn't wrapped in a <Text> component and breaks the code
 export default class App extends React.Component <any,any>{
@@ -52,7 +53,8 @@ const AppSwitchNavigator = createSwitchNavigator({
   Settings: {screen: Settings},
   Profiles: {screen: Profile},
   Views: {screen: ViewPost},
-  Comment: {screen: Comments}
+  Comment: {screen: Comments},
+  Edit: {screen: Edit}
 });
 
 //Creates the container for the application
