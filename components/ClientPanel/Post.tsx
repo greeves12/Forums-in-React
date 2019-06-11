@@ -44,10 +44,10 @@ export default class Post extends React.Component <any,any>{
         //When we get a response back, we check if it actually posted or not
         if(responseJson == 'POSTED'){
           //If it posted we will set everything blank (textbox's) and send the user back to the thread page
-          this.props.navigation.navigate('Feed', {Username: username});
           this.setState({title: ""})
           this.setState({description: ""})
           Alert.alert("Successfully posted.");
+          this.props.navigation.navigate('Feed', {Username: username});
         }else{
           Alert.alert("Something went wrong...Try again later");
         }

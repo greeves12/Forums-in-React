@@ -18,6 +18,7 @@ export default class Comments extends React.Component {
   description = this.props.navigation.getParam('Description');
   username = this.props.navigation.getParam('Username');
   theId = this.props.navigation.getParam('ID');
+  op = this.props.navigation.getParam('OP');
 
   //Create post function
   createPost() {
@@ -56,7 +57,7 @@ export default class Comments extends React.Component {
     
       <Header 
       backgroundColor='#fff'
-        leftComponent={<Icon name='arrow-left' type='font-awesome' onPress={() => this.props.navigation.navigate('Views', {Username: this.username, Title: this.title, Description: this.description, ID: this.theId} )} />}
+        leftComponent={<Icon name='arrow-left' type='font-awesome' onPress={() => this.props.navigation.navigate('Views', {Username: this.username, Title: this.title, Description: this.description, ID: this.theId, OP: this.op} )} />}
         centerComponent={<Text style={{marginRight: 80, fontSize: 15, fontFamily: 'Times', fontWeight: 'bold'}}>Comment Reply</Text>}
         rightComponent={<Text style={{color: '#566573', fontFamily: 'Times', fontWeight: 'bold'}} onPress={this.createPost}>POST</Text>}
       />

@@ -9,7 +9,7 @@ export default class ViewPost extends React.Component {
     super(props);
     this.state ={
       data: [],
-      refreshing: false
+      refreshing: false,
     }
 
     this.getAllComments = this.getAllComments.bind(this);
@@ -30,6 +30,8 @@ export default class ViewPost extends React.Component {
   getAllComments=()=>{
     var i = this.props.navigation.getParam('ID');
     //Creates another request to the server
+    
+
     fetch('http://162.243.174.168/comment.php', {
         method: 'POST',
         headers: {
@@ -62,8 +64,8 @@ export default class ViewPost extends React.Component {
     if(this.username == this.op || this.admin){
       deleteIcon =  <Icon onPress={() => this.deleteContent} name='trash' type='font-awesome' size={20} />
       deleteText =  <Text onPress={() => this.deleteContent}> Delete</Text>
-      editText = <Text onPress={() => this.props.navigation.navigate()}> Edit    </Text>
-      editButton = <Icon onPress={() => this.props.navigation.navigate()} containerStyle={{marginLeft: 3}} name='edit' type='font-awesome' size={20}/>
+      editText = <Text onPress={() => this.props.navigation.navigate('Edit', {Title: this.props.navigation.getParam('Title'), Description: this.props.navigation.getParam('Description'), Username: this.props.navigation.getParam('Username'), ID: this.props.navigation.getParam('ID'), OP: this.op})}> Edit    </Text>
+      editButton = <Icon onPress={() => this.props.navigation.navigate('Edit', {Title: this.props.navigation.getParam('Title'), Description: this.props.navigation.getParam('Description'), Username: this.props.navigation.getParam('Username'), ID: this.props.navigation.getParam('ID'), OP: this.op})} containerStyle={{marginLeft: 3}} name='edit' type='font-awesome' size={20}/>
     }
 
     return(
@@ -74,30 +76,30 @@ export default class ViewPost extends React.Component {
       leftComponent={<Icon name='arrow-left' type='font-awesome' onPress={() => this.props.navigation.navigate('Feed', {Username: this.username})}/>}
       /> 
     <ScrollView refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.getAllComments}/>}>
-      <View style={{width: 350,height: 300,marginLeft: 30, backgroundColor: '#F4F6F6'}}>
+      <View style={{width: 350,height: 300 + (this.description.length/2),marginLeft: 30, backgroundColor: '#F4F6F6'}}>
         <View style={{height: 40, width: 350, backgroundColor: '#FA8072'}}></View>
         <View style={{flexDirection: 'row'}}>
             <Text style={{marginLeft: 10, fontSize: 20, textDecorationLine: 'underline'}}>{this.title} </Text>
-            <Text> u/{this.username} </Text>
+            <Text> u/{this.op} </Text>
         </View>    
             <Text> {this.description} </Text>
             
-        <View style={{flexDirection: 'row', marginTop: 180}}>
+        <View style={{flexDirection: 'row', marginTop: 185}}>
             {editButton}
             {editText}
             {deleteIcon}
             {deleteText}
-            <Icon containerStyle={{marginLeft: 68}} name='reply' type='font-awesome' size={20} onPress={() => this.props.navigation.navigate('Comment', {Username: this.username, Title: this.title, Description: this.description, ID: this.theId})}/>
-            <Text onPress={() => this.props.navigation.navigate('Comment', {Username: this.username, Title: this.title, Description: this.description, ID: this.theId})}> Reply    </Text>
+            <Icon containerStyle={{marginLeft: 68}} name='reply' type='font-awesome' size={20} onPress={() => this.props.navigation.navigate('Comment', {Username: this.username, Title: this.title, Description: this.description, ID: this.theId, OP: this.op})}/>
+            <Text onPress={() => this.props.navigation.navigate('Comment', {Username: this.username, Title: this.title, Description: this.description, ID: this.theId, OP: this.op})}> Reply    </Text>
             <Icon name='exclamation-circle' type='font-awesome' size={20}/>
             <Text> Report</Text>
         </View>
       </View>
  
-          <FlatList style={{marginTop:10}}
+          <FlatList style={{marginTop:10, marginBottom: 20}}
             data={this.state.data}
             renderItem={({item}) => (
-              <View style={{flex: 1, width: 350, border: 1, backgroundColor: '#FFF' ,borderColor: 'black', borderWidth: 1, marginLeft: 30}}>
+              <View style={{flexBasis: 50, width: 350 , border: 1, backgroundColor: '#FFF' ,borderColor: 'black', borderWidth: 1, marginLeft: 30, marginBottom: 20}}>
                 <View style={{flexDirection: 'row', backgroundColor: '#F4F6F6', borderBottomColor: '#000000', borderBottomWidth: 1, paddingBottom: 5}}>
                   <Text style={{}}>Posted by u/{item.username} </Text>
                 </View>
