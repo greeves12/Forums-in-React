@@ -7,6 +7,7 @@
   - react-native init AwesomeProject
   
 #Description
+
 A forum application designed in React Native for both Android and IOS, it allows the user to create posts, comment and edit their own posts. Currently the application fetches the user account on login/registration from the webserver running MySQL. It also fetches the posts and comments for each posts from the webserver aswell using a JSON object from Javascript to PHP.
 
 #Features Included
@@ -17,4 +18,5 @@ A forum application designed in React Native for both Android and IOS, it allows
   - Login verification/registration
 
 #Usage
-Clicking the 
+
+Running the application from the home screen of your smart phone. Then proceed to create an account by clicking "Create Account". Fill in the fields and register, then you may proceed to login upon successful registration. Once logged in you may continue as you please by viewing posts, commenting or making your own.
