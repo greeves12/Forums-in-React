@@ -1,10 +1,10 @@
 # React App
 
 #INSTALLATION
-  - Clone the repository (If you are unaware on how to do this, then don't continue to step 2)
-  - Create a empty folder on the desktop
-  - Download nodeJS and npm
-  - react-native init AwesomeProject
+  - Install snack expo from Google play or App Store
+  - Go to this link https://snack.expo.io/@tateg6/adequate-donut
+  - Click "Run on device" you will need to scan the QR code from the snack expo app
+  - You can now run the project on your phone
   
 #Description
 
